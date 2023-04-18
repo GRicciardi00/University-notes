@@ -1,5 +1,4 @@
 # University_Master
- IF YOU FOUND SOMETHING USEFUL PLEASE LEAVE A STAR ⭐
 
 Notes, projects and various material from my master university career.
 I'll try to update more material as soon as possible 
