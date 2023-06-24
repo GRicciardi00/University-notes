@@ -1,1 +1,1 @@
-Occhio alle domande a risposta multipla! (ho reperito i file cosi)
+Occhio alle domande a risposta multipla! (ho ricevuto i file già modificati cosi')
