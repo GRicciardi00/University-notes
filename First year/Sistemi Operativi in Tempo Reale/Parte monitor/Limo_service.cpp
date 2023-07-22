@@ -1,5 +1,12 @@
 //MATRICOLA 355695, GIUSEPPE RICCIARDI ESAME 14/07/2023, VOTO: 26/30
 
+
+
+//CORREZIONI DEL PROF
+//Va cambiata la traccia dei thread, il ciclo for non va bene in quanto serializza l'esecuzione. Devono essere usati due thread bus diversi.
+//Tutti i booleani e le code (eccetto le code iniziali che devono essere uniche) devono essere messi in array.
+
+
 //SEMANTICA MESA -> priorità al segnalante
 
 
