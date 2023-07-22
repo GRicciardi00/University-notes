@@ -1,0 +1,25 @@
+differenza tra wait e signal sui semafori e sulle condition_variable?
+
+parlare di uno degli algoritmi della mutua esclusione(fornaio, dekker, peterson) ? (2x) -> OK
+
+regione critica condizionale? (2x)
+
+monitor con semafori? (2x)
+
+chiamate innestate? (2x)
+
+lettori e scrittori con regione critica condizionale?
+
+Regione critica condizionale con semafori? (2x)
+
+Monitor in semantica Hoore? (2x)ù
+
+Algoritmo di Dekker
+
+Algoritmo del Fornaio
+
+Semafori Privati (esempio filosofi)
+
+Prevenzione statica della deadlock
+
+
