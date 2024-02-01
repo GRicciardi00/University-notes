@@ -1,0 +1,118 @@
+Esercizio 1
+
+SELECT DISTINCT cod_pais
+FROM ACTOR
+ORDER BY cod_pais,cod_pais ASC
+
+Esercizio 2
+
+SELECT DISTINCT cod_peli, titulo
+FROM PELICULA
+WHERE anyo<1970 AND cod_lib IS NULL
+ORDER BY titulo ASC
+
+Esercizio 3
+
+SELECT nombre
+FROM ACTOR
+WHERE nombre LIKE '%John%'
+
+Esercizio 4
+SELECT nombre
+FROM ACTOR
+WHERE nombre LIKE '%John%'
+
+Esercizio 5
+SELECT cod_peli, titulo
+FROM PELICULA
+WHERE cod_lib IS NOT NULL AND director LIKE '%Pakula%'
+
+Esercizio 6
+SELECT count(*)
+FROM Pelicula
+WHERE duracion>120 AND anyo BETWEEN 1980 AND 1989
+
+Esercizio 7
+SELECT count(DISTINCT cod_peli)
+FROM CLASIFICACION
+WHERE cod_gen IN ('BB5', 'GG4', 'JH6')
+
+Esercizio 8
+SELECT MIN(anyo)
+FROM LIBRO_PELI
+
+Esercizio 9
+SELECT AVG(duracion)
+FROM PELICULA
+WHERE anyo = 1987
+
+Esercizio 10
+SELECT sum(duracion)
+FROM PELICULA
+WHERE director = 'Steven Spielberg'
+
+Esercizio 11
+SELECT P.cod_peli, P.titulo
+FROM pelicula P, actua A1, actor A2
+WHERE A1.cod_peli = P.cod_peli AND A1.cod_act = A2.cod_act AND A2.nombre = P.director
+ORDER BY P.titulo ASC
+
+Esercizio 12
+SELECT P.cod_peli, P.titulo
+FROM pelicula P, clasificacion C, genero G
+WHERE C.cod_peli = P.cod_peli AND C.cod_gen = G.cod_gen AND G.nombre = 'Comedia'
+ORDER BY P.titulo ASC
+
+Esercizio 13
+SELECT P.cod_peli, P.titulo
+FROM pelicula P, libro_peli L
+WHERE P.cod_lib = L.cod_lib AND L.anyo < 1950
+ORDER BY P.titulo ASC
+
+Esercizio 14
+SELECT DISTINCT P.cod_pais, P.nombre
+FROM actor A1, actua A2, pais P,pelicula P2, Clasificacion C, Genero G
+WHERE P.cod_pais = A1.cod_pais AND A2.cod_act = A1.cod_act AND A2.cod_peli = P2.cod_peli AND P2.cod_peli = C.cod_peli AND C.cod_gen = G.cod_gen AND G.nombre = 'Comedia'
+ORDER BY P.nombre ASC
+
+Esercizio 15.1
+SELECT DISTINCT P.cod_peli, P.titulo
+FROM pelicula P
+WHERE P.director IN (SELECT A.nombre 
+                    FROM Actor A, Actua A1
+                    WHERE A.nombre = P.director AND A1.cod_peli = P.cod_peli AND A.cod_act = A1.cod_act )
+ORDER BY P.titulo ASC
+
+Esercizio 15.2
+SELECT P.cod_peli, P.titulo
+FROM pelicula P 
+WHERE P.cod_peli IN (SELECT C.cod_peli
+                     FROM clasificacion C, genero G
+                     WHERE C.cod_gen = G.cod_gen AND G.nombre = 'Comedia')
+ORDER BY P.titulo ASC
+
+Esercizio 15.3
+SELECT P.cod_peli, P.titulo
+FROM pelicula P
+WHERE P.cod_lib IN (SELECT L.cod_lib
+                    FROM libro_peli L
+                    WHERE L.anyo < 1950)
+ORDER BY P.titulo ASC
+
+Esercizio 15.4
+SELECT DISTINCT P.cod_pais, P.nombre
+FROM  pais P
+WHERE P.cod_pais in (SELECT A1.cod_pais
+                        FROM actor A1, actua A2, pelicula P2, Clasificacion C, Genero G
+                        WHERE A2.cod_act = A1.cod_act AND A2.cod_peli = P2.cod_peli AND P2.cod_peli = C.cod_peli AND C.cod_gen = G.cod_gen AND G.nombre = 'Comedia')
+ORDER BY P.nombre ASC
+
+ESERCIZIO 16
+SELECT A.cod_act, A.nombre
+FROM actor A 
+WHERE A.cod_act in (SELECT A1.cod_act
+                    FROM actua A1, pelicula P
+                    WHERE A1.papel = 'Principal' AND A1.cod_peli = P.cod_peli AND EXTRACT (YEAR FROM A.fecha_nac) < 1950 )
+ORDER BY A.nombre ASC
+
+ESERCIZIO 17

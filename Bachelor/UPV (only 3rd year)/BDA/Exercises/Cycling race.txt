@@ -1,0 +1,220 @@
+ESERCIZIO 1
+SELECT *
+FROM JERSEY
+
+ESERCIZIO 2
+SELECT c.name, COUNT(c.name)
+FROM Cyclist c
+WHERE c.age<=25
+
+ESERCIZIO 3
+SELECT climbname, height
+FROM Climb
+WHERE category = 'E'
+
+ESERCIZIO 4
+SELECT stagenum
+FROM stage
+WHERE departure = arrival
+
+ESERCIZIO 5
+SELECT count(*)
+FROM cyclist
+WHERE age>25
+
+ESERCIZIO 6
+SELECT count(*)
+FROM team
+
+ESERCIZIO 8
+SELECT AVG(age)
+FROM Cyclist
+
+ESERCIZIO 9
+SELECT MIN(height), MAX(height)
+FROM Climb
+
+ESERCIZIO 10
+SELECT c.climbname, c.category
+FROM Climb c, Cyclist c1
+WHERE c.cnum = c1.cnum AND c1.teamname = 'Banesto'
+
+ESERCIZIO 11
+SELECT c.climbname, c.stagenum, s.km
+FROM Climb c, Stage s
+WHERE s.stagenum = c.stagenum
+
+ESERCIZIO 12
+SELECT DISTINCT    t.teamname, t.director
+FROM Team t, Cyclist c
+WHERE c.teamname = t.teamname AND c.age >33
+
+ESERCIZIO 13
+SELECT DISTINCT C.name, J.color
+FROM Cyclist C, Wear W, Jersey J
+WHERE C.cnum = W.cnum AND W.code = J.code
+
+ESERCIZIO 14
+SELECT DISTINCT C.name, S.stagenum
+FROM Cyclist C, Wear W, Jersey J, Stage S
+WHERE C.cnum = W.cnum AND W.code = J.code AND J.color = 'Amarillo' AND C.cnum = S.cnum
+
+ESERCIZIO 15 
+SELECT DISTINCT S1.stagenum
+FROM Stage S1, Stage S
+WHERE S.stagenum = S1.stagenum-1 AND S1.departure <> S.arrival
+ORDER BY S1.stagenum asc 
+
+ESERCIZIO 16
+SELECT DISTINCT stagenum, departure
+FROM Stage
+WHERE stagenum NOT IN (SELECT stagenum FROM Climb)
+
+ESERCIZIO 17
+SELECT AVG(age)
+FROM Cyclist
+WHERE cnum IN (SELECT cnum FROM Stage)
+
+ESERCIZIO 18
+SELECT climbname
+FROM Climb 
+WHERE height >(SELECT AVG(c1.height) FROM Climb c1)
+
+ESERCIZIO 19
+SELECT s.departure, s.arrival 
+FROM Stage s, Climb c
+WHERE s.stagenum = c.stagenum AND c.slope = (SELECT MAX(c1.slope) FROM Climb c1)
+
+ESERCIZIO 20
+SELECT cyc.name, cyc.cnum
+FROM Cyclist cyc, Climb c
+WHERE cyc.cnum = c.cnum AND c.height = (SELECT MAX(c1.height) FROM Climb c1)
+
+ESERCIZIO 21
+SELECT cyc.name
+FROM Cyclist cyc
+WHERE cyc.age = (SELECT MIN(age) FROM cyclist)
+
+ESERCIZIO 22
+SELECT name
+FROM Cyclist
+WHERE cnum IN (SELECT s.cnum 
+                FROM Stage s)
+INTERSECT
+SELECT name
+FROM Cyclist
+WHERE age = (SELECT MIN(c.age) 
+             FROM Cyclist c 
+             WHERE c.cnum IN (SELECT s.cnum FROM Stage s))
+
+ESERCIZIO 23
+SELECT name
+FROM Cyclist
+WHERE cnum IN (SELECT s.cnum 
+                FROM Stage s)
+INTERSECT
+SELECT name
+FROM Cyclist
+WHERE age = (SELECT MIN(c.age) 
+             FROM Cyclist c 
+             WHERE c.cnum IN (SELECT s.cnum FROM Stage s))
+
+ESERCIZIO 24
+SELECT S.stagenum
+FROM Stage S
+WHERE NOT EXISTS (SELECT *
+                  FROM Climb c
+                  WHERE c.stagenum = S.stagenum AND c.height <= 700)
+      AND EXISTS (SELECT *
+                  FROM Climb c
+                  WHERE c.stagenum = S.stagenum)
+
+
+ESERCIZIO 25
+SELECT t.teamname, t.director
+FROM Team t
+WHERE NOT EXISTS (SELECT *
+                  FROM Cyclist c
+                  WHERE c.teamname = t.teamname AND c.age <= 25)
+      AND EXISTS (SELECT *
+                  FROM Cyclist c
+                  WHERE c.teamname = t.teamname) 
+
+ESERCIZIO 26
+SELECT c.cnum, c.name
+FROM Cyclist c
+WHERE NOT EXISTS (SELECT *
+                  FROM Stage s
+                  WHERE c.cnum = s.cnum AND s.km <= 170)
+      AND EXISTS (SELECT *
+                  FROM Stage s
+                  WHERE c.cnum = s.cnum)           
+
+ESERCIZIO 27
+SELECT c.cnum, c.name
+FROM Cyclist c, Stage s
+WHERE S.cnum = c.cnum AND NOT EXISTS (SELECT *
+                                      FROM Climb cl
+                                      WHERE cl.stagenum = s.stagenum AND cl.cnum <> c.cnum)
+                     AND EXISTS (SELECT *
+                                      FROM Climb cl
+                                      WHERE cl.stagenum = s.stagenum)
+
+ESERCIZIO 28
+SELECT t.teamname
+FROM Team t
+WHERE NOT EXISTS (SELECT *
+                  FROM Cyclist c, Wear w
+                  WHERE c.teamname = t.teamname AND c.cnum NOT IN (SELECT cnum FROM Wear) AND c.cnum NOT IN (SELECT cnum FROM Climb)
+                  )
+    AND EXISTS (SELECT *
+                  FROM Cyclist c, Wear w
+                  WHERE c.teamname = t.teamname)
+                   
+ESERCIZIO 29
+
+
+
+
+
+ESERCIZIO 30
+SELECT DISTINCT T.teamname 
+FROM Team T
+WHERE NOT EXISTS (SELECT *
+                  FROM Cyclist C
+                  WHERE C.teamname = T.teamname AND C.cnum IN (SELECT Cl.cnum
+                                                                    FROM Climb cl
+                                                                    WHERE cl.category <> '1')
+                  )
+    AND EXISTS   (SELECT *
+                  FROM Cyclist C
+                  WHERE C.teamname = T.teamname AND C.cnum IN (SELECT Cl.cnum
+                                                                    FROM Climb cl
+                                                                    WHERE cl.category = '1')
+                  )
+
+ESERCIZIO 31
+SELECT S.stagenum, count(C.stagenum)
+FROM Stage S, Climb C
+WHERE S.stagenum = C.stagenum
+GROUP BY S.stagenum
+
+ESERCIZIO 32
+SELECT T.teamname, Count(C.teamname)
+FROM Team T, Cyclist C
+WHERE T.teamname = C.teamname
+GROUP BY T.teamname
+
+ESERCIZIO 33
+SELECT T.teamname, Count(c.teamname)
+FROM Team T LEFT JOIN Cyclist C ON (C.teamname=T.teamname) 
+GROUP BY T.teamname
+
+ESERCIZIO 34
+SELECT director, teamname
+FROM Team NATURAL LEFT JOIN Cyclist
+GROUP BY director, teamname
+HAVING AVG(AGE)<=30 AND Count(cnum)>3
+
+ESERCIZIO 35
+

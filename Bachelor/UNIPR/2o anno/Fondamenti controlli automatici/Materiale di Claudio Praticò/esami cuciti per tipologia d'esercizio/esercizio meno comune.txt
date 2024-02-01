@@ -1,0 +1,3 @@
+l'esercizio che non è stato cucito è raro, ed inizia con:
+Determinare i valori di 𝐾 ∈ ℝ che assicurano la stabilità asintotica del sistema di controllo in figura. Il periodo di campionamento
+è facilmente rintracciabile tramite il TerminatorFCA utilizzando il tasto cerca

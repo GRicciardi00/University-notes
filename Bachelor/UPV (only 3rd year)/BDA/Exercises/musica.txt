@@ -1,0 +1,43 @@
+
+ESERCIZIO 23
+SELECT c.nombre, COUNT(e.can), c.dir
+FROM companyia c LEFT JOIN (Disco d JOIN Esta e USING (cod)) ON (c.cod =d.cod_comp)
+GROUP BY c.nombre, c.dir
+
+ESERCIZIO 24
+SELECT a.nombre FROM Artista a
+WHERE a.dni IN (SELECT p.dni FROM pertenece p JOIN grupo g ON (p.cod = g.cod AND g.pais = 'Inglaterra')
+                WHERE g.cod IN (SELECT c.cod_gru FROM Club c WHERE c.num>500))
+ORDER BY a.nombre asc
+
+ESERCIZIO 25
+SELECT c.titulo 
+FROM Cancion c JOIN Esta e ON (c.cod = e.can)
+WHERE e.cod IN (SELECT d.cod 
+                FROM disco d JOIN Grupo g ON (d.cod_gru = g.cod AND g.nombre = 'U2'))
+
+ESERCIZIO 26
+SELECT a1.nombre, a2.nombre
+FROM Artista a1, Artista a2, Pertenece p1, pertenece p2, Grupo g1, Grupo g2
+WHERE g1.pais = 'España' AND g2.pais = 'España'  AND a1.dni = p1.dni AND a2.dni = p2.dni AND p1.cod = g1.cod AND p2.cod = g2.cod AND p1.funcion = 'voz' AND p2.funcion = 'guitarra' AND p1.cod <> p2.cod
+
+
+ESERCIZIO 27
+SELECT A.nombre 
+FROM Artista A JOIN Pertenece P USING (dni)
+GROUP BY A.nombre
+HAVING COUNT(*)>1
+
+ESERCIZIO 28
+SELECT c1.titulo 
+FROM cancion c1 
+WHERE c1.duracion = (SELECT MAX(duracion) 
+                     FROM cancion )  
+    AND NOT EXISTS (SELECT duracion 
+                            FROM cancion 
+                            WHERE duracion = c1.duracion)  
+
+
+ESERCIZIO 29
+SELECT c.nombre, c.num FROM club c
+WHERE (SELECT COUNT(*) FROM club c1 WHERE c.num<c1.num) = 10
