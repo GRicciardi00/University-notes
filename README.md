@@ -1,4 +1,4 @@
-# University_Master
+# University Notes
 
 Notes, projects and various material from my university career.
 I'll try to update more material as soon as possible 
